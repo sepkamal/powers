@@ -1,0 +1,1 @@
+pow <- function(x, a=2) x^a
