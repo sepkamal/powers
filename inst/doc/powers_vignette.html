@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Sepehr Kamal" />
+
+<meta name="date" content="2017-11-28" />
+
+<title>Using the powers package</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using the <code>powers</code> package</h1>
+<h4 class="author"><em>Sepehr Kamal</em></h4>
+<h4 class="date"><em>2017-11-28</em></h4>
+
+
+
+<p><strong>Note</strong>: This package isn’t actually meant to be “serious”. I made it just for teaching purposes.</p>
+<p>Want to compute powers without having to use <code>^</code> or <code>**</code>? Give <code>sqrt</code> some friends by loading the <code>powers</code> package!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(powers)</code></pre></div>
+<p>Want squares, cubes, or reciprocals? Easy.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">square</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
+<pre><code>##  [1]   1   4   9  16  25  36  49  64  81 100</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cube</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
+<pre><code>##  [1]    1    8   27   64  125  216  343  512  729 1000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">reciprocal</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
+<pre><code>##  [1] 1.0000000 0.5000000 0.3333333 0.2500000 0.2000000 0.1666667 0.1428571
+##  [8] 0.1250000 0.1111111 0.1000000</code></pre>
+<p><code>apply</code>-family friendly, too!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.7</span>)
+## So base-R-boring!
+<span class="kw">lapply</span>(my_list, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
+<pre><code>## [[1]]
+##  [1]   1   4   9  16  25  36  49  64  81 100
+## 
+## [[2]]
+## [1] 0.25
+## 
+## [[3]]
+## [1] 0.49</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Use powers instead!
+<span class="kw">lapply</span>(my_list, square)</code></pre></div>
+<pre><code>## [[1]]
+##  [1]   1   4   9  16  25  36  49  64  81 100
+## 
+## [[2]]
+## [1] 0.25
+## 
+## [[3]]
+## [1] 0.49</code></pre>
+<p>It even comes with the ability to display its output in plot form!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">reciprocal</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">plot_it=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>##  [1] 1.0000000 0.5000000 0.3333333 0.2500000 0.2000000 0.1666667 0.1428571
+##  [8] 0.1250000 0.1111111 0.1000000</code></pre>
+<p>It can also store the results as a dataframe!!!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">power_datatable</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="st">&quot;3&quot;</span>), <span class="dv">2</span>, <span class="dt">plot_it =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>##   Base Power
+## 1    1     1
+## 2    4    16
+## 3    3     9</code></pre>
+<p>Wow!!!</p>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
