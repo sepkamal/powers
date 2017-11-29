@@ -28,6 +28,12 @@ powers::cube(2)
 #> [1] 8
 ```
 
+One way you can view the vignette is by running this code after you have loaded the package:
+
+``` r
+browseVignettes("powers")
+```
+
 
 For Developers
 --------------
