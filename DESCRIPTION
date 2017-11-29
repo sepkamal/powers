@@ -3,14 +3,21 @@ Type: Package
 Title: Simple Computation of Powers
 Version: 0.1.0
 Authors@R: person("Sepehr", "Kamal", email="sepehr.kamal@gmail.com",
-	role=c("aut", "cre"))
+    role=c("aut", "cre"))
 Description: Are you tired of using the power operator in R?
-	Use this package to call functions that apply common powers
-	to your vectors.
+    Use this package to call functions that apply common powers
+    to your vectors. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-Imports: ggplot2
+Suggests: testthat,
+    knitr,
+    rmarkdown
+Imports: ggplot2,
+    magrittr,
+    dplyr
+VignetteBuilder: knitr
+Depends: R(>= 2.10.0)
 URL: https://github.com/sepkamal/powers
 BugReports: https://github.com/sepkamal/powers/issues
