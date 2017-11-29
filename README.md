@@ -31,7 +31,7 @@ powers::cube(2)
 One way you can view the vignette is by running this code after you have loaded the package:
 
 ``` r
-browseVignettes("powers")
+help(package = "powers", help_type = "html")
 ```
 
 
